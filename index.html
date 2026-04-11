@@ -1,1062 +1,691 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Naufal Izzudin — Data Analyst Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Izzuddin — Data Portfolio</title>
+  <meta name="description" content="Data portfolio of Izzuddin — SQL, Python, Excel, Tableau, Power BI" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg:       #0e0e0e;
-    --surface:  #161616;
-    --card:     #1a1a1a;
-    --border:   #2a2a2a;
-    --amber:    #f0a500;
-    --amber-dim:#7a5200;
-    --text:     #e8e2d9;
-    --muted:    #6b6560;
-    --light:    #b0a99e;
-  }
+    :root {
+      --cream: #FFFDF7;
+      --cream-border: #E8E4D8;
+      --cream-hover: #F1EFE8;
+      --amber: #B87333;
+      --amber-light: #FAEEDA;
+      --amber-dark: #854F0B;
+      --text-primary: #1a1a18;
+      --text-secondary: #5f5e5a;
+      --text-muted: #888780;
+      --white: #ffffff;
+      --green-bg: #EAF3DE;
+      --green-text: #3B6D11;
+      --blue-bg: #E6F1FB;
+      --blue-text: #185FA5;
+      --pink-bg: #FBEAF0;
+      --pink-text: #993556;
+      --coral-bg: #FAECE7;
+      --coral-text: #993C1D;
+      --gray-bg: #F1EFE8;
+      --gray-text: #444441;
+    }
 
-  html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    cursor: none;
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* Custom cursor */
-  .cursor {
-    position: fixed;
-    width: 10px; height: 10px;
-    background: var(--amber);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s, width 0.2s, height 0.2s;
-  }
-  .cursor-ring {
-    position: fixed;
-    width: 36px; height: 36px;
-    border: 1px solid rgba(240,165,0,0.4);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease, width 0.3s, height 0.3s, border-color 0.3s;
-  }
-  body:has(a:hover) .cursor-ring,
-  body:has(button:hover) .cursor-ring { width: 56px; height: 56px; border-color: var(--amber); }
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,253,247,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--cream-border);
+      padding: 0 48px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-  /* Grain overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.5;
-  }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
 
-  /* Nav */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 48px;
-    background: rgba(14,14,14,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
+    .nav-logo span { color: var(--amber); }
 
-  .nav-logo {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    color: var(--amber);
-    letter-spacing: 0.15em;
-    text-decoration: none;
-  }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
 
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
 
-  .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--amber); }
 
-  /* Hero */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 120px 48px 80px;
-    overflow: hidden;
-  }
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 48px 64px;
+      border-bottom: 1px solid var(--cream-border);
+      position: relative;
+      overflow: hidden;
+    }
 
-  .hero-bg-line {
-    position: absolute;
-    right: -100px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(200px, 22vw, 340px);
-    font-weight: 900;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(240,165,0,0.06);
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-    white-space: nowrap;
-  }
+    .hero-bg {
+      position: absolute;
+      top: 0; right: 0;
+      width: 420px; height: 420px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
 
-  .hero-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    animation: fadeUp 0.8s ease both;
-  }
-  .hero-tag::before {
-    content: '';
-    width: 32px;
-    height: 1px;
-    background: var(--amber);
-  }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+    }
 
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(52px, 8vw, 110px);
-    font-weight: 900;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    margin-bottom: 32px;
-    animation: fadeUp 0.8s 0.1s ease both;
-  }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(38px, 6vw, 62px);
+      font-weight: 400;
+      line-height: 1.08;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
 
-  .hero h1 span { color: var(--amber); }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--amber);
+    }
 
-  .hero-desc {
-    max-width: 520px;
-    font-size: 16px;
-    color: var(--light);
-    line-height: 1.8;
-    margin-bottom: 48px;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
 
-  .hero-stats {
-    display: flex;
-    gap: 48px;
-    margin-bottom: 48px;
-    animation: fadeUp 0.8s 0.3s ease both;
-  }
+    .hero-sub strong { color: var(--text-primary); font-weight: 500; }
 
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--amber);
-    line-height: 1;
-  }
-  .stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 4px;
-  }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
 
-  .hero-actions {
-    display: flex;
-    gap: 16px;
-    animation: fadeUp 0.8s 0.4s ease both;
-  }
+    .hero-tag {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 5px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--cream-border);
+      color: var(--text-secondary);
+      background: var(--white);
+    }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
-    background: var(--amber);
-    color: #0e0e0e;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: none;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .btn-primary:hover { background: #ffc130; transform: translateY(-2px); }
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
-  .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 14px 28px;
-    background: transparent;
-    color: var(--light);
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid var(--border);
-    cursor: none;
-    transition: border-color 0.2s, color 0.2s, transform 0.2s;
-  }
-  .btn-ghost:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-2px); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
+    }
 
-  /* Skills bar */
-  .skills-bar {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 20px 48px;
-    display: flex;
-    gap: 40px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .skills-bar::-webkit-scrollbar { display: none; }
+    .btn:active { transform: scale(0.97); }
 
-  .skill-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .skill-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--amber);
-    opacity: 0.6;
-  }
+    .btn-dark {
+      background: var(--text-primary);
+      color: var(--cream);
+    }
 
-  /* Section */
-  section {
-    position: relative;
-    z-index: 1;
-    padding: 100px 48px;
-  }
+    .btn-dark:hover { background: #333; }
 
-  .section-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 60px;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
+    .btn-outline {
+      background: var(--white);
+      color: var(--text-primary);
+      border: 1px solid var(--cream-border);
+    }
 
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 12px;
-  }
+    .btn-outline:hover { background: var(--cream-hover); }
 
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
+    /* ── SECTION ── */
+    .section {
+      padding: 64px 48px;
+      border-bottom: 1px solid var(--cream-border);
+    }
 
-  /* Filter tabs */
-  .filter-tabs {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+    .section:last-of-type { border-bottom: none; }
 
-  .filter-btn {
-    padding: 8px 18px;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: none;
-    transition: all 0.2s;
-  }
-  .filter-btn:hover { border-color: var(--amber-dim); color: var(--light); }
-  .filter-btn.active { background: var(--amber); border-color: var(--amber); color: #0e0e0e; }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
 
-  /* Project grid */
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 2px;
-  }
+    .label-flagship  { background: var(--green-bg);  color: var(--green-text); }
+    .label-showcase  { background: var(--amber-light); color: var(--amber-dark); }
+    .label-learning  { background: var(--blue-bg);   color: var(--blue-text); }
 
-  .project-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 32px;
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s, transform 0.3s;
-    animation: fadeIn 0.5s ease both;
-  }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
 
-  .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--amber);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-  }
+    .section-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 560px;
+      margin-bottom: 36px;
+    }
 
-  .project-card:hover { border-color: rgba(240,165,0,0.3); transform: translateY(-4px); }
-  .project-card:hover::before { transform: scaleX(1); }
+    /* ── GRID ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
 
-  .card-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-  }
+    /* ── CARD ── */
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--cream-border);
+      border-radius: 12px;
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color 0.15s, transform 0.18s, box-shadow 0.18s;
+    }
 
-  .card-icon {
-    width: 40px; height: 40px;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-    background: var(--surface);
-  }
+    .project-card:hover {
+      border-color: var(--amber);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(184,115,51,0.12);
+    }
 
-  .card-arrow {
-    font-size: 18px;
-    color: var(--muted);
-    transition: color 0.2s, transform 0.2s;
-    flex-shrink: 0;
-  }
-  .project-card:hover .card-arrow { color: var(--amber); transform: translate(3px, -3px); }
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
 
-  .card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      flex-shrink: 0;
+    }
 
-  .tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-  }
+    .icon-sql     { background: var(--gray-bg); }
+    .icon-python  { background: var(--green-bg); }
+    .icon-excel   { background: var(--amber-light); }
+    .icon-tableau { background: var(--blue-bg); }
+    .icon-powerbi { background: var(--pink-bg); }
 
-  .tag.highlight {
-    border-color: var(--amber-dim);
-    color: var(--amber);
-  }
+    .card-arrow {
+      font-size: 14px;
+      color: var(--cream-border);
+      transition: color 0.15s;
+      margin-top: 2px;
+    }
 
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1.3;
-    color: var(--text);
-  }
+    .project-card:hover .card-arrow { color: var(--amber); }
 
-  .card-desc {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.7;
-    flex: 1;
-  }
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
 
-  .card-meta {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-  }
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.65;
+      flex: 1;
+    }
 
-  .meta-cat {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
 
-  /* hidden class */
-  .project-card.hidden { display: none; }
+    .card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
 
-  /* About section */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
+    .tag-sql     { background: var(--gray-bg);    color: var(--gray-text); }
+    .tag-python  { background: var(--green-bg);   color: var(--green-text); }
+    .tag-excel   { background: var(--amber-light); color: var(--amber-dark); }
+    .tag-tableau { background: var(--blue-bg);    color: var(--blue-text); }
+    .tag-powerbi { background: var(--pink-bg);    color: var(--pink-text); }
+    .tag-etl     { background: var(--coral-bg);   color: var(--coral-text); }
 
-  .about-text p {
-    font-size: 15px;
-    color: var(--light);
-    line-height: 1.9;
-    margin-bottom: 20px;
-  }
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid var(--cream-border);
+    }
 
-  .about-text p strong { color: var(--amber); font-weight: 500; }
+    .footer-text { font-size: 13px; color: var(--text-muted); }
 
-  .about-stack h3 {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 24px;
-  }
+    .footer-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
 
-  .stack-group {
-    margin-bottom: 28px;
-  }
+    .footer-link:hover { color: var(--amber); }
 
-  .stack-group-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-
-  .stack-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .stack-item {
-    padding: 6px 14px;
-    border: 1px solid var(--border);
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--light);
-    letter-spacing: 0.05em;
-  }
-
-  /* Contact */
-  .contact-section {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
-
-  .contact-section .section-title { margin-bottom: 16px; }
-
-  .contact-desc {
-    font-size: 15px;
-    color: var(--muted);
-    margin-bottom: 40px;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  /* Footer */
-  footer {
-    padding: 28px 48px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  footer p {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-  }
-
-  footer span { color: var(--amber); }
-
-  /* Divider */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 0 48px;
-  }
-
-  /* Animations */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  /* Scroll reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    nav { padding: 16px 24px; }
-    .hero { padding: 100px 24px 60px; }
-    section { padding: 70px 24px; }
-    .skills-bar { padding: 20px 24px; }
-    .about-grid { grid-template-columns: 1fr; gap: 48px; }
-    .hero-stats { gap: 28px; }
-    .hero-bg-line { font-size: 120px; }
-    .project-grid { grid-template-columns: 1fr; }
-    footer { padding: 24px; }
-    .divider { margin: 0 24px; }
-    .nav-links { display: none; }
-  }
-</style>
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero, .section { padding: 48px 24px; }
+      footer { padding: 24px; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">izz<span>dataflow</span></a>
+    <ul class="nav-links">
+      <li><a href="#flagship">Flagship</a></li>
+      <li><a href="#showcase">Showcase</a></li>
+      <li><a href="#learning">Learning</a></li>
+      <li><a href="https://github.com/izzdataflow" target="_blank">GitHub ↗</a></li>
+    </ul>
+  </nav>
 
-<!-- Nav -->
-<nav>
-  <a href="#" class="nav-logo">izzdataflow</a>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+  <!-- HERO -->
+  <section class="hero">
+    <svg class="hero-bg" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <pattern id="dotgrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1.5" fill="#B87333"/>
+      </pattern>
+      <rect width="420" height="420" fill="url(#dotgrid)"/>
+    </svg>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-bg-line">DATA</div>
-  <div class="hero-tag">Available for opportunities</div>
-  <h1>Naufal<br><span>Izzudin</span></h1>
-  <p class="hero-desc">
-    Data Analyst specializing in turning raw, messy data into clear decisions. 
-    Working across SQL, Python, Excel, and BI tools to build end-to-end pipelines — 
-    from database migrations to live dashboards.
-  </p>
-  <div class="hero-stats">
-    <div>
-      <div class="stat-num">16</div>
-      <div class="stat-label">Projects</div>
+    <p class="hero-eyebrow">Data Portfolio</p>
+    <h1>Turning data into<br><em>decisions</em></h1>
+    <p class="hero-sub">
+      Hi, I'm <strong>Izzuddin</strong> — a data analyst who builds clean pipelines,
+      clear dashboards, and analysis that actually gets used.
+      I work across SQL, Python, Excel, Tableau, and Power BI.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">SQL Server</span>
+      <span class="hero-tag">MySQL</span>
+      <span class="hero-tag">PostgreSQL</span>
+      <span class="hero-tag">Python</span>
+      <span class="hero-tag">Excel</span>
+      <span class="hero-tag">Tableau</span>
+      <span class="hero-tag">Power BI</span>
+      <span class="hero-tag">Data Warehousing</span>
+      <span class="hero-tag">ETL</span>
     </div>
-    <div>
-      <div class="stat-num">6</div>
-      <div class="stat-label">Tools</div>
+    <div class="hero-links">
+      <a href="https://github.com/izzdataflow" class="btn btn-dark" target="_blank">GitHub Profile ↗</a>
+      <a href="#flagship" class="btn btn-outline">View Projects</a>
     </div>
-    <div>
-      <div class="stat-num">4</div>
-      <div class="stat-label">Domains</div>
-    </div>
-  </div>
-  <div class="hero-actions">
-    <a href="#projects" class="btn-primary">View Projects ↓</a>
-    <a href="https://github.com/izzdataflow" target="_blank" class="btn-ghost">GitHub →</a>
-  </div>
-</section>
+  </section>
 
-<!-- Skills bar -->
-<div class="skills-bar">
-  <div class="skill-pill"><span class="skill-dot"></span>SQL Server & PostgreSQL</div>
-  <div class="skill-pill"><span class="skill-dot"></span>Python & Pandas</div>
-  <div class="skill-pill"><span class="skill-dot"></span>Power BI</div>
-  <div class="skill-pill"><span class="skill-dot"></span>Tableau</div>
-  <div class="skill-pill"><span class="skill-dot"></span>Microsoft Excel</div>
-  <div class="skill-pill"><span class="skill-dot"></span>REST APIs</div>
-  <div class="skill-pill"><span class="skill-dot"></span>Web Scraping</div>
-  <div class="skill-pill"><span class="skill-dot"></span>Data Cleaning & EDA</div>
-  <div class="skill-pill"><span class="skill-dot"></span>ETL Pipelines</div>
-</div>
+  <!-- FLAGSHIP -->
+  <section class="section" id="flagship">
+    <div class="section-label label-flagship">★ Flagship Projects</div>
+    <h2 class="section-title">Production-Ready Work</h2>
+    <p class="section-desc">End-to-end projects with full documentation, clean code, and real business insights — built to production standard.</p>
 
-<!-- Projects -->
-<section id="projects">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-label">// work</div>
-      <h2 class="section-title">Projects</h2>
-    </div>
-    <div class="filter-tabs">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="sql">SQL</button>
-      <button class="filter-btn" data-filter="python">Python</button>
-      <button class="filter-btn" data-filter="excel">Excel</button>
-      <button class="filter-btn" data-filter="bi">BI Tools</button>
-    </div>
-  </div>
+    <div class="projects-grid">
 
-  <div class="project-grid" id="projectGrid">
-
-    <!-- SQL -->
-    <a href="https://github.com/izzdataflow/sql-server-to-postgres-migration" target="_blank"
-       class="project-card" data-cat="sql">
-      <div class="card-top">
-        <div class="card-icon">🗄️</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">SQL Server</span>
-        <span class="tag highlight">PostgreSQL</span>
-        <span class="tag">Migration</span>
-        <span class="tag">ETL</span>
-      </div>
-      <div class="card-title">SQL Server → PostgreSQL Migration</div>
-      <div class="card-desc">Full database migration pipeline — schema conversion, data type mapping, and validation between SQL Server and PostgreSQL environments.</div>
-      <div class="card-meta"><span class="meta-cat">SQL · Database Engineering</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/mysql-datacleaning-eda" target="_blank"
-       class="project-card" data-cat="sql">
-      <div class="card-top">
-        <div class="card-icon">🔍</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">MySQL</span>
-        <span class="tag">Data Cleaning</span>
-        <span class="tag">EDA</span>
-      </div>
-      <div class="card-title">MySQL Data Cleaning & EDA</div>
-      <div class="card-desc">End-to-end data cleaning and exploratory analysis in MySQL — handling nulls, deduplication, standardization, and trend discovery through SQL queries.</div>
-      <div class="card-meta"><span class="meta-cat">SQL · Data Cleaning</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/EPL-Standings-2024-25" target="_blank"
-       class="project-card" data-cat="sql">
-      <div class="card-top">
-        <div class="card-icon">⚽</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">REST API</span>
-        <span class="tag highlight">MySQL</span>
-        <span class="tag">Sports Data</span>
-      </div>
-      <div class="card-title">EPL Standings 2024–25</div>
-      <div class="card-desc">Live Premier League standings pulled from a REST API and stored in MySQL. Automated data ingestion pipeline with structured querying for match statistics.</div>
-      <div class="card-meta"><span class="meta-cat">SQL · API Integration</span></div>
-    </a>
-
-    <!-- Python -->
-    <a href="https://github.com/izzdataflow/python-learning-journey" target="_blank"
-       class="project-card" data-cat="python">
-      <div class="card-top">
-        <div class="card-icon">🐍</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Python</span>
-        <span class="tag">Fundamentals</span>
-        <span class="tag">Reference</span>
-      </div>
-      <div class="card-title">Python Learning Journey</div>
-      <div class="card-desc">Structured Python reference from variables to web scraping — covering data types, loops, functions, file automation, BeautifulSoup, and requests with working examples throughout.</div>
-      <div class="card-meta"><span class="meta-cat">Python · Self-Learning</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/pandas-learning-journey" target="_blank"
-       class="project-card" data-cat="python">
-      <div class="card-top">
-        <div class="card-icon">🐼</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Python</span>
-        <span class="tag highlight">Pandas</span>
-        <span class="tag">EDA</span>
-        <span class="tag">Visualization</span>
-      </div>
-      <div class="card-title">Pandas Learning Journey</div>
-      <div class="card-desc">Complete Pandas reference — reading files, filtering, indexing, groupby, merging, data cleaning, EDA, and visualization with Matplotlib and Seaborn.</div>
-      <div class="card-meta"><span class="meta-cat">Python · Data Analysis</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/python-webscraping-wikipedia" target="_blank"
-       class="project-card" data-cat="python">
-      <div class="card-top">
-        <div class="card-icon">🌐</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">BeautifulSoup</span>
-        <span class="tag highlight">Requests</span>
-        <span class="tag">Web Scraping</span>
-        <span class="tag">CSV</span>
-      </div>
-      <div class="card-title">Web Scraping — Wikipedia</div>
-      <div class="card-desc">Scrapes the largest US companies by revenue from Wikipedia, parses HTML tables using BeautifulSoup, and exports structured data to CSV via Pandas.</div>
-      <div class="card-meta"><span class="meta-cat">Python · Web Scraping</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/python-webscraping-amazon" target="_blank"
-       class="project-card" data-cat="python">
-      <div class="card-top">
-        <div class="card-icon">📦</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">BeautifulSoup</span>
-        <span class="tag">Automation</span>
-        <span class="tag">Email Alert</span>
-        <span class="tag">CSV</span>
-      </div>
-      <div class="card-title">Amazon Price Tracker</div>
-      <div class="card-desc">Automated price tracker that scrapes Amazon product pages on a schedule, logs readings with timestamps to CSV, and triggers an email alert when the price drops below a threshold.</div>
-      <div class="card-meta"><span class="meta-cat">Python · Automation</span></div>
-    </a>
-
-    <!-- Excel -->
-    <a href="https://github.com/izzdataflow/excel-formula-mastery" target="_blank"
-       class="project-card" data-cat="excel">
-      <div class="card-top">
-        <div class="card-icon">📐</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Excel</span>
-        <span class="tag">XLOOKUP</span>
-        <span class="tag">SUMPRODUCT</span>
-        <span class="tag">Reference</span>
-      </div>
-      <div class="card-title">Excel Formula Mastery</div>
-      <div class="card-desc">Progressive formula reference from basic to expert level — covering XLOOKUP, INDEX/MATCH, SUMIFS, dynamic arrays, proration logic, and SUMPRODUCT revenue modeling.</div>
-      <div class="card-meta"><span class="meta-cat">Excel · Formulas</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/excel-bikebuyers-report" target="_blank"
-       class="project-card" data-cat="excel">
-      <div class="card-top">
-        <div class="card-icon">🚲</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Excel</span>
-        <span class="tag">Dashboard</span>
-        <span class="tag">Pivot Tables</span>
-      </div>
-      <div class="card-title">Bike Buyers Report</div>
-      <div class="card-desc">Interactive Excel dashboard analyzing bike purchasing behavior across demographics — built with pivot tables, slicers, and dynamic charts for drill-down exploration.</div>
-      <div class="card-meta"><span class="meta-cat">Excel · Dashboard</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/excel-event-report" target="_blank"
-       class="project-card" data-cat="excel">
-      <div class="card-top">
-        <div class="card-icon">📅</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Excel</span>
-        <span class="tag">Reporting</span>
-        <span class="tag">Data Cleaning</span>
-      </div>
-      <div class="card-title">Event Report</div>
-      <div class="card-desc">Event performance report built in Excel — data cleaned, summarized, and formatted for stakeholder-ready presentation with key attendance and revenue metrics.</div>
-      <div class="card-meta"><span class="meta-cat">Excel · Reporting</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/excel-campaign-report" target="_blank"
-       class="project-card" data-cat="excel">
-      <div class="card-top">
-        <div class="card-icon">📢</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Excel</span>
-        <span class="tag">Marketing</span>
-        <span class="tag">KPI Tracking</span>
-      </div>
-      <div class="card-title">Campaign Report</div>
-      <div class="card-desc">Marketing campaign performance tracker in Excel — measuring reach, conversions, and ROI across channels with automated KPI calculations and visual summaries.</div>
-      <div class="card-meta"><span class="meta-cat">Excel · Marketing Analytics</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/excel-powerpivot-dashboard" target="_blank"
-       class="project-card" data-cat="excel">
-      <div class="card-top">
-        <div class="card-icon">⚡</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Excel</span>
-        <span class="tag highlight">Power Pivot</span>
-        <span class="tag">DAX</span>
-        <span class="tag">Data Model</span>
-      </div>
-      <div class="card-title">Power Pivot Dashboard</div>
-      <div class="card-desc">Multi-table data model built with Power Pivot and DAX measures — enabling cross-table analysis and calculated KPIs that go beyond standard pivot table capabilities.</div>
-      <div class="card-meta"><span class="meta-cat">Excel · Power Pivot</span></div>
-    </a>
-
-    <!-- BI Tools -->
-    <a href="https://github.com/izzdataflow/top-10-uk-youtubers-2025" target="_blank"
-       class="project-card" data-cat="bi">
-      <div class="card-top">
-        <div class="card-icon">📊</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Excel</span>
-        <span class="tag highlight">SQL Server</span>
-        <span class="tag highlight">Power BI</span>
-        <span class="tag">YouTube Data</span>
-      </div>
-      <div class="card-title">Top 10 UK YouTubers 2025</div>
-      <div class="card-desc">End-to-end analytics project — data sourced via API, cleaned in Excel, stored in SQL Server, and visualized in Power BI to surface top UK creators by engagement metrics.</div>
-      <div class="card-meta"><span class="meta-cat">Power BI · Full Pipeline</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/powerbi-survey-report" target="_blank"
-       class="project-card" data-cat="bi">
-      <div class="card-top">
-        <div class="card-icon">📋</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Power BI</span>
-        <span class="tag">Power Query</span>
-        <span class="tag">Survey Data</span>
-      </div>
-      <div class="card-title">Data Professional Survey Report</div>
-      <div class="card-desc">Power BI dashboard analyzing a 630-person data professional survey — covering salary by role, favorite languages, work-life balance scores, and difficulty breaking into data.</div>
-      <div class="card-meta"><span class="meta-cat">Power BI · Survey Analytics</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/tableau-excel-deloitte" target="_blank"
-       class="project-card" data-cat="bi">
-      <div class="card-top">
-        <div class="card-icon">🏢</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Tableau</span>
-        <span class="tag highlight">Excel</span>
-        <span class="tag">Case Study</span>
-      </div>
-      <div class="card-title">Deloitte Case Study — Tableau & Excel</div>
-      <div class="card-desc">Deloitte-style business case study with Excel analysis and Tableau visualization — presenting findings on operational data with consultant-grade dashboard design.</div>
-      <div class="card-meta"><span class="meta-cat">Tableau · Business Analytics</span></div>
-    </a>
-
-    <a href="https://github.com/izzdataflow/tableau-airbnb" target="_blank"
-       class="project-card" data-cat="bi">
-      <div class="card-top">
-        <div class="card-icon">🏠</div>
-        <span class="card-arrow">↗</span>
-      </div>
-      <div class="card-tags">
-        <span class="tag highlight">Tableau</span>
-        <span class="tag">Real Estate</span>
-        <span class="tag">Geospatial</span>
-        <span class="tag">Pricing</span>
-      </div>
-      <div class="card-title">Airbnb Market Analysis — Tableau</div>
-      <div class="card-desc">Tableau dashboard exploring Airbnb listing prices, availability, and revenue trends across neighborhoods — with geospatial maps and seasonal trend breakdowns.</div>
-      <div class="card-meta"><span class="meta-cat">Tableau · Market Analysis</span></div>
-    </a>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- About -->
-<section id="about">
-  <div class="section-header reveal">
-    <div>
-      <div class="section-label">// about</div>
-      <h2 class="section-title">Background</h2>
-    </div>
-  </div>
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <p>I'm a <strong>Data Analyst</strong> who builds things end-to-end — from writing the SQL that cleans and structures raw data, to the Power BI dashboard a manager actually uses to make decisions.</p>
-      <p>My work spans the full data stack: <strong>database engineering</strong> (migrations, schema design, ETL), <strong>Python automation</strong> (scraping, API pipelines, scheduled jobs), <strong>Excel modeling</strong> (advanced formulas, Power Pivot, DAX), and <strong>BI visualization</strong> (Tableau, Power BI).</p>
-      <p>Every project in this portfolio was built from scratch as part of a self-directed learning journey — no shortcuts, no templates. Each one taught a specific skill that I carry into the next.</p>
-    </div>
-    <div class="about-stack reveal">
-      <h3>// Tech Stack</h3>
-      <div class="stack-group">
-        <div class="stack-group-label">Databases</div>
-        <div class="stack-items">
-          <span class="stack-item">SQL Server</span>
-          <span class="stack-item">PostgreSQL</span>
-          <span class="stack-item">MySQL</span>
+      <a href="https://github.com/izzdataflow/sql-datawarehouse-advanced-analytics" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-sql">🏗️</div>
+          <span class="card-arrow">↗</span>
         </div>
-      </div>
-      <div class="stack-group">
-        <div class="stack-group-label">Python</div>
-        <div class="stack-items">
-          <span class="stack-item">Pandas</span>
-          <span class="stack-item">BeautifulSoup</span>
-          <span class="stack-item">Requests</span>
-          <span class="stack-item">Seaborn</span>
-          <span class="stack-item">Matplotlib</span>
+        <div class="card-title">SQL Data Warehouse &amp; Advanced Analytics</div>
+        <div class="card-desc">Full Medallion Architecture (Bronze→Silver→Gold) with ETL pipelines, data cleansing, star schema design, and a complete BI analytics layer.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-sql">SQL Server</span>
+          <span class="card-tag tag-etl">ETL</span>
+          <span class="card-tag tag-sql">Data Warehouse</span>
+          <span class="card-tag tag-sql">Star Schema</span>
         </div>
-      </div>
-      <div class="stack-group">
-        <div class="stack-group-label">BI & Visualization</div>
-        <div class="stack-items">
-          <span class="stack-item">Power BI</span>
-          <span class="stack-item">Tableau</span>
-          <span class="stack-item">Power Query</span>
-          <span class="stack-item">DAX</span>
+      </a>
+
+      <a href="https://github.com/izzdataflow/top-10-uk-youtubers-2025" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-sql">📊</div>
+          <span class="card-arrow">↗</span>
         </div>
-      </div>
-      <div class="stack-group">
-        <div class="stack-group-label">Excel</div>
-        <div class="stack-items">
-          <span class="stack-item">XLOOKUP</span>
-          <span class="stack-item">Power Pivot</span>
-          <span class="stack-item">Advanced Formulas</span>
+        <div class="card-title">Top 10 UK YouTubers — Data Analysis 2025</div>
+        <div class="card-desc">End-to-end analysis of UK YouTuber performance metrics with actionable recommendations delivered as a marketing campaign brief.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-sql">SQL</span>
+          <span class="card-tag tag-excel">Excel</span>
+          <span class="card-tag tag-powerbi">Power BI</span>
         </div>
-      </div>
+      </a>
+
+      <a href="https://github.com/izzdataflow/mysql-datacleaning-eda" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-sql">🔍</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Data Cleaning &amp; Exploratory Analysis</div>
+        <div class="card-desc">Rigorous data quality pipeline in MySQL covering deduplication, normalisation, null handling, and exploratory analysis with documented findings.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-sql">MySQL</span>
+          <span class="card-tag tag-etl">Data Cleaning</span>
+          <span class="card-tag tag-sql">EDA</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/izzdataflow/sql-server-to-postgres-migration" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-sql">🔄</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">SQL Server → PostgreSQL Migration</div>
+        <div class="card-desc">Cross-platform database migration covering schema translation, data transfer strategy, and validation testing across two SQL dialects.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-sql">SQL Server</span>
+          <span class="card-tag tag-sql">PostgreSQL</span>
+          <span class="card-tag tag-etl">Migration</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/izzdataflow/epl-standings-2024-25" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-sql">⚽</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">EPL 2024/25 — Standings &amp; Performance Breakdown</div>
+        <div class="card-desc">Analysis of Premier League standings with match-by-match statistics, form tables, and visualised performance trends across the season.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-sql">SQL</span>
+          <span class="card-tag tag-python">Python</span>
+          <span class="card-tag tag-tableau">Tableau</span>
+        </div>
+      </a>
+
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <!-- SHOWCASE -->
+  <section class="section" id="showcase">
+    <div class="section-label label-showcase">◆ Showcase Projects</div>
+    <h2 class="section-title">Tools &amp; Techniques in Practice</h2>
+    <p class="section-desc">Focused projects demonstrating specific tools and analytical skills applied to real-world datasets and business scenarios.</p>
 
-<!-- Contact -->
-<section id="contact" class="contact-section">
-  <div class="section-label">// contact</div>
-  <h2 class="section-title reveal">Let's Work Together</h2>
-  <p class="contact-desc reveal">Open to data analyst roles, freelance projects, and collaborations. Feel free to reach out.</p>
-  <div class="contact-links reveal">
-    <a href="https://github.com/izzdataflow" target="_blank" class="btn-primary">GitHub →</a>
-    <a href="mailto:naufalizzudin36@gmail.com" class="btn-ghost">Email ↗</a>
-  </div>
-</section>
+    <div class="projects-grid">
 
-<!-- Footer -->
-<footer>
-  <p>© 2025 <span>Naufal Izzudin</span> — izzdataflow</p>
-  <p>Built with <span>♥</span> and raw HTML</p>
-</footer>
+      <a href="https://github.com/izzdataflow/tableau-excel-deloitte" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-tableau">📈</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Deloitte Business Intelligence Case Study</div>
+        <div class="card-desc">Replicated a Deloitte analyst task combining Excel reporting with Tableau visualisations to deliver executive-level insights.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-tableau">Tableau</span>
+          <span class="card-tag tag-excel">Excel</span>
+        </div>
+      </a>
 
-<script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+      <a href="https://github.com/izzdataflow/powerbi-survey-report" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-powerbi">📋</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Power BI Survey Dashboard</div>
+        <div class="card-desc">Interactive Power BI report built from survey data with slicers, drill-throughs, and KPI cards for stakeholder review.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-powerbi">Power BI</span>
+          <span class="card-tag tag-excel">Excel</span>
+        </div>
+      </a>
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top  = my + 'px';
-  });
+      <a href="https://github.com/izzdataflow/tableau-airbnb" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-tableau">🏡</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Airbnb Market Analysis — Tableau</div>
+        <div class="card-desc">Geographic and pricing analysis of Airbnb listings using Tableau maps, bar charts, and trend lines to surface market patterns.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-tableau">Tableau</span>
+          <span class="card-tag tag-sql">Data Analysis</span>
+        </div>
+      </a>
 
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
+      <a href="https://github.com/izzdataflow/excel-powerpivot-dashboard" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-excel">⚡</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Excel PowerPivot Analytics Dashboard</div>
+        <div class="card-desc">Multi-table data model built in PowerPivot with DAX measures, enabling relational analysis inside a dynamic Excel dashboard.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-excel">Excel</span>
+          <span class="card-tag tag-excel">PowerPivot</span>
+          <span class="card-tag tag-excel">DAX</span>
+        </div>
+      </a>
 
-  // Filter
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.project-card');
+      <a href="https://github.com/izzdataflow/python-webscraping-amazon" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-python">🕸️</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Amazon Price Tracker — Web Scraping</div>
+        <div class="card-desc">Python scraper that monitors Amazon product prices over time, stores results, and triggers alerts when prices drop below a threshold.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-python">Python</span>
+          <span class="card-tag tag-python">BeautifulSoup</span>
+        </div>
+      </a>
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      cards.forEach((card, i) => {
-        const show = filter === 'all' || card.dataset.cat === filter;
-        card.classList.toggle('hidden', !show);
-        if (show) {
-          card.style.animationDelay = (i * 0.04) + 's';
-          card.style.animation = 'none';
-          card.offsetHeight;
-          card.style.animation = '';
-        }
-      });
-    });
-  });
+      <a href="https://github.com/izzdataflow/excel-campaign-report" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-excel">📣</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Marketing Campaign Performance Report</div>
+        <div class="card-desc">Excel report analysing campaign ROI, conversion funnels, and channel effectiveness using pivot tables and dynamic charts.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-excel">Excel</span>
+          <span class="card-tag tag-excel">PivotTables</span>
+        </div>
+      </a>
 
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
-</script>
+      <a href="https://github.com/izzdataflow/excel-event-report" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-excel">🗓️</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Event Analytics Report</div>
+        <div class="card-desc">Structured Excel report covering event attendance, budget tracking, and outcome summary formatted for stakeholder presentation.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-excel">Excel</span>
+          <span class="card-tag tag-excel">Reporting</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/izzdataflow/excel-bikebuyers-report" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-excel">🚴</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Bike Buyers — Customer Segmentation Report</div>
+        <div class="card-desc">Demographic segmentation of bike buyers using pivot tables, with an interactive dashboard to filter by age, income, and region.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-excel">Excel</span>
+          <span class="card-tag tag-excel">Segmentation</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/izzdataflow/python-webscraping-wikipedia" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-python">📖</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Wikipedia Data Extraction Pipeline</div>
+        <div class="card-desc">Python scraper that extracts and structures tabular data from Wikipedia pages into a clean, analysis-ready CSV dataset.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-python">Python</span>
+          <span class="card-tag tag-python">Pandas</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- LEARNING -->
+  <section class="section" id="learning">
+    <div class="section-label label-learning">◉ Learning Journey</div>
+    <h2 class="section-title">Growth in Public</h2>
+    <p class="section-desc">Documented practice repos — notes, exercises, and experiments from learning core data skills from the ground up.</p>
+
+    <div class="projects-grid">
+
+      <a href="https://github.com/izzdataflow/sql-learning-journey" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-sql">📚</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">SQL Foundations — Structured Study Notes</div>
+        <div class="card-desc">Progressive SQL exercises from basic SELECT to window functions, CTEs, and stored procedures — all annotated for future reference.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-sql">SQL</span>
+          <span class="card-tag tag-sql">SQL Server</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/izzdataflow/python-learning-journey" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-python">🐍</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Python for Data — Structured Study Notes</div>
+        <div class="card-desc">Hands-on Python exercises covering data types, control flow, functions, and data manipulation fundamentals from scratch.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-python">Python</span>
+          <span class="card-tag tag-python">Fundamentals</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/izzdataflow/pandas-learning-journey" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-python">🐼</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Pandas Mastery — Structured Study Notes</div>
+        <div class="card-desc">Deep-dive into Pandas: DataFrame manipulation, groupby, merging, time series, and real-world data cleaning patterns.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-python">Python</span>
+          <span class="card-tag tag-python">Pandas</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/izzdataflow/excel-formula-mastery" class="project-card" target="_blank">
+        <div class="card-top">
+          <div class="card-icon icon-excel">🧮</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-title">Excel Formula Mastery — Reference &amp; Practice</div>
+        <div class="card-desc">Comprehensive formula workbook covering XLOOKUP, dynamic arrays, text functions, and advanced conditional logic patterns.</div>
+        <div class="card-tags">
+          <span class="card-tag tag-excel">Excel</span>
+          <span class="card-tag tag-excel">Formulas</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-text">© 2025 Izzuddin · <a href="https://github.com/izzdataflow" class="footer-link" target="_blank">izzdataflow</a></span>
+    <div style="display:flex; gap:20px;">
+      <a href="#flagship" class="footer-link">Flagship</a>
+      <a href="#showcase" class="footer-link">Showcase</a>
+      <a href="#learning" class="footer-link">Learning</a>
+      <a href="https://github.com/izzdataflow" class="footer-link" target="_blank">GitHub ↗</a>
+    </div>
+  </footer>
+
 </body>
 </html>
